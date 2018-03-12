@@ -15,6 +15,7 @@ io.on('connection', socket => {
         console.log(`Client disconnected because: ${reason}`);
     });
 
+    console.log('Client connected!');
     socket.on('message', console.log);
 });
 

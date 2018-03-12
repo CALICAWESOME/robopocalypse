@@ -1,5 +1,5 @@
 // Socket stuff first
-const socket = io('http://localhost:6969');
+const socket = io('http://bobby-mart.in:6969');
 
 socket.on('connect', () => {
     console.log('WE OUT HERE');
