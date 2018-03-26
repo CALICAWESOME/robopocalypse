@@ -1,14 +1,19 @@
 // Socket stuff first
-const socket = io('http://bobby-mart.in:6969');
+const server = 'localhost';
+const socket = io(`http://${server}:6969/webpage`);
 
 socket.on('connect', () => {
-    console.log('WE OUT HERE');
+    console.log(`Connected to ${server}!`);
+});
+
+socket.on('message', message => {
+    console.log(message);
 });
 
 // WHEN DA PAGE LOAD
 window.onload = function() {
-    console.log("HEY IT LOADED FUCKER");
-    document.getElementById("slideboi").oninput = function() {
+    console.log('Page finished loading');
+    document.getElementById('slideboi').oninput = function() {
         socket.send(this.value);
     };
 };
