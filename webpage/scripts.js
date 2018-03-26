@@ -1,5 +1,5 @@
 // Socket stuff first
-const server = 'localhost';
+const server = 'bobby-mart.in';
 const socket = io(`http://${server}:6969/webpage`);
 
 socket.on('connect', () => {

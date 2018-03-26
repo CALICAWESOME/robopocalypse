@@ -16,15 +16,21 @@ const arduinoSocket = io.of('/arduino');
 webpageSocket.on('connection', socket => {
     // set up listeners
     socket.on('disconnect', reason => {
-        console.log(`Client disconnected because: ${reason}`);
+        console.log(`Webpage client disconnected because: ${reason}`);
     });
 
-    console.log('Client connected!');
+    console.log('Webpage client connected!');
     socket.on('message', console.log);
+});
 
-    // io.emit('message', 'io');
-    // webpageSocket.emit('message', 'webpageSocket');
-    // arduinoSocket.emit('message', 'arduinoSocket');
+arduinoSocket.on('connection', socket => {
+    // set up listeners
+    socket.on('disconnect', reason => {
+        console.log(`Arduino client disconnected because: ${reason}`);
+    });
+
+    console.log('Arduino client connected!');
+    socket.on('message', console.log);
 });
 
 server.listen(6969, () => {
