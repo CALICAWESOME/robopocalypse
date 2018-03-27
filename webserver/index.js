@@ -13,7 +13,7 @@ const webpageSocket = new ws.Server({
 const arduinoSocket = new ws.Server({
     port: 6969
 }, () => {
-    console.log('Arduino socket server listenin on port 6969')
+    console.log('Arduino socket server listening on port 6969')
 });
 
 webpageSocket.on('connection', socket => {
