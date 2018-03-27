@@ -4,34 +4,25 @@
  */
 
 const ws = require('ws');
+const net = require('net');
 
 const webpageSocket = new ws.Server({
     port: 6968
 }, () => {
     console.log('Webpage socket server listening on port 6968');
 });
-const arduinoSocket = new ws.Server({
-    port: 6969
-}, () => {
-    console.log('Arduino socket server listening on port 6969')
-});
 
 webpageSocket.on('connection', socket => {
-    // set up listeners
-    socket.on('close', (code, reason) => {
-        console.log(`Webpage client disconnected because: ${reason}`);
-    });
-
     console.log('Webpage client connected!');
+    // set up listeners
+    socket.on('close', (code, reason) => console.log(`Webpage client disconnected because: ${reason}`));
     socket.on('message', console.log);
 });
 
-arduinoSocket.on('connection', socket => {
+const arduinoSocketServer = new net.createServer(socket => {
+    console.log('Somebody connected!!');
     // set up listeners
-    socket.on('close', (code, reason) => {
-        console.log(`Arduino client disconnected because: ${reason}`);
-    });
-
-    console.log('Arduino client connected!');
-    socket.send('HELLO MY SON');
+    socket.on('close', hadError => console.log(`Disconnected ${hadError ? 'with error' : 'without error'}`));
+    socket.on('data', data => socket.write(data));
 });
+arduinoSocketServer.listen(6969, () => console.log('Arduino socket server listening on port 6969'));
