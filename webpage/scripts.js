@@ -1,6 +1,6 @@
 // Socket stuff first
-const server = 'localhost';
-const socket = new WebSocket(`ws://${server}:6968`);
+const server = 'bobby-mart.in';
+const socket = new WebSocket(`ws://${server}:6969`);
 
 socket.onopen = () => {
     console.log(`Connected to ${server}!`);
