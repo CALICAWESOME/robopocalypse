@@ -3,19 +3,22 @@
  * 2017
  */
 
-const http = require('http');
-const socketio = require('socket.io');
+const ws = require('ws');
 
-const server = http.createServer();
-const io = socketio(server);
-
-// separate namespaces for webpage & arduino
-const webpageSocket = io.of('/webpage');
-const arduinoSocket = io.of('/arduino');
+const webpageSocket = new ws.Server({
+    port: 6968
+}, () => {
+    console.log('Webpage socket server listening on port 6968');
+});
+const arduinoSocket = new ws.Server({
+    port: 6969
+}, () => {
+    console.log('Arduino socket server listenin on port 6969')
+});
 
 webpageSocket.on('connection', socket => {
     // set up listeners
-    socket.on('disconnect', reason => {
+    socket.on('close', (code, reason) => {
         console.log(`Webpage client disconnected because: ${reason}`);
     });
 
@@ -25,14 +28,10 @@ webpageSocket.on('connection', socket => {
 
 arduinoSocket.on('connection', socket => {
     // set up listeners
-    socket.on('disconnect', reason => {
+    socket.on('close', (code, reason) => {
         console.log(`Arduino client disconnected because: ${reason}`);
     });
 
     console.log('Arduino client connected!');
-    socket.on('message', console.log);
-});
-
-server.listen(6969, () => {
-    console.log('Server listening on port 6969');
+    socket.send('HELLO MY SON');
 });

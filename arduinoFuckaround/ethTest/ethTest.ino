@@ -1,7 +1,7 @@
 #include<SPI.h>
 #include<Ethernet.h>
 
-byte mac[] = { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66 };
+byte mac[] = { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55 };
 char server[] = "www.bobby-mart.in";
 
 // in case DHCP fucks up
@@ -22,10 +22,10 @@ void setup() {
   delay(1000);
   Serial.println("connecting...?");
 
-  if (client.connect(server, 80)) {
+  if (client.connect(server, 6969)) {
     Serial.println("connected");
     // LET'S MAKE A REQUEST YAY
-    client.println("GET http://bobby-mart.in/ HTTP/1.1");
+    client.println("GET http://bobby-mart.in/arduino HTTP/1.1");
     client.println("Host: www.google.com");
     client.println("Connection: close");
     client.println();
