@@ -30,7 +30,7 @@ webpageSocketServer.on('connection', socket => {
 const arduinoSocketServer = new net.createServer(socket => {
     console.log('Somebody connected!!');
     // set up listeners
-    socket.on('end', hadError => {
+    socket.on('close', hadError => {
         console.log(`Disconnected ${hadError ? 'with error' : 'without error'}`);
         arduinoSocket = dummySocket;
     });
