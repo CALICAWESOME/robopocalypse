@@ -23,7 +23,7 @@ webpageSocketServer.on('connection', socket => {
     socket.on('close', (code, reason) => console.log(`Webpage client disconnected because: ${reason}`));
     socket.on('message', message => {
         console.log(message);
-        arduinoSocket.write(message);
+        arduinoSocket.write(message + '\n');
     });
 });
 
