@@ -10,6 +10,6 @@
   "author": "Bobby Martin & Alex Robbins",
   "license": "MIT",
   "dependencies": {
-    "socket.io": "^2.0.4"
+    "ws": "^5.1.0"
   }
 }

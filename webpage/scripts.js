@@ -1,14 +1,14 @@
 // Socket stuff first
 const server = 'bobby-mart.in';
-const socket = io(`http://${server}:6969/webpage`);
+const socket = new WebSocket(`ws://${server}:6968`);
 
-socket.on('connect', () => {
+socket.onopen = () => {
     console.log(`Connected to ${server}!`);
-});
+};
 
-socket.on('message', message => {
-    console.log(message);
-});
+socket.onmessage = message => {
+    console.log(message.data);
+};
 
 // WHEN DA PAGE LOAD
 window.onload = function() {
