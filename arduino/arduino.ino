@@ -1,22 +1,36 @@
 /*
  * Bobby Martin & Alex Robbins
- * 
- * This is a placeholder sketch that sets a servo motor on
- * pin 9 to a random value from 0 to 180 every second.
  */
-#include <Servo.h>
+#include <SPI.h>
+#include <Ethernet.h>
 
-long randomNumber;
-Servo servo;
+const byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+const char server[] = "www.bobby-mart.in";
+const int port = 6969;
+
+IPAddress ip(192, 168, 0, 177);
+
+EthernetClient client;
 
 void setup() {
-  // Serial.begin(19200);
-  
-  servo.attach(9);
-  randomSeed(analogRead(0));
+  Serial.begin(19200);
+  Ethernet.begin(mac);
+  client.connect(server, port);
+  client.println("HELLO PLEASE");
 }
 
 void loop() {
-  servo.write(random(0, 180));
-  delay(1000);
+  if (client.available()) {
+    char c = client.read();
+    Serial.print(c);
+  }
+
+  if (!client.connected()) {
+    Serial.println();
+    Serial.println("disconnecting.");
+    client.stop();
+
+    // do nothing forevermore:
+    while (true);
+  }
 }
