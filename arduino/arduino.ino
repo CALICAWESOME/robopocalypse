@@ -1,13 +1,15 @@
 /*
  * Bobby Martin & Alex Robbins
+ * 2018
  */
+
 #include <SPI.h>
 #include <Ethernet.h>
 #include <Servo.h>
 
 const byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 const char server[] = "www.bobby-mart.in";
-const int port = 6969;
+const int port = 6868;
 
 String posString = "";
 int pos = 0;
@@ -18,6 +20,7 @@ IPAddress ip(192, 168, 0, 177);
 
 EthernetClient client;
 
+// initial setup
 void setup() {
   Serial.begin(19200);
   Ethernet.begin(mac);
@@ -27,6 +30,7 @@ void setup() {
   servo.write(pos);
 }
 
+// main loop
 void loop() {
   if (client.available()) {
     char inChar = client.read();
