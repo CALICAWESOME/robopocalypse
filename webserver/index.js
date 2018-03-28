@@ -34,6 +34,7 @@ const arduinoSocketServer = new net.createServer(socket => {
         console.log(`Disconnected ${hadError ? 'with error' : 'without error'}`);
         arduinoSocket = dummySocket;
     });
+    socket.write('HELLO SON');
     arduinoSocket = socket;
 });
 arduinoSocketServer.listen(6969, () => console.log('Arduino socket server listening on port 6969'));
