@@ -7,7 +7,7 @@ const ws = require('ws');
 const net = require('net');
 
 const dummySocket = {
-    write: () => {}
+    write: message => console.log(`can't write "${message}", there's no socket!!!!!`)
 };
 
 let arduinoSocket = dummySocket;
